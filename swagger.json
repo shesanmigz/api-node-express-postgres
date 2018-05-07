@@ -1,0 +1,186 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "version": "1.0.0",
+    "title": "Node Express Sample APIs",
+    "description": "Node Express Sample APIs"
+  },
+  "host": "localhost:9000",
+  "basePath": "/api",
+  "tags": [
+    {
+      "name": "Languages",
+      "description": "Languages"
+    }
+  ],
+  "schemes": [
+    "http"
+  ],
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/languages": {
+      "post": {
+        "tags": [
+          "Language"
+        ],
+        "description": "Insert a language",
+        "parameters": [
+          {
+            "name": "language",
+            "in": "body",
+            "description": "Language to insert",
+            "schema": {
+              "$ref": "#/definitions/Language"
+            },
+            "example": {
+              "language_name": "English",
+              "iso_6391": "en"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Insert a language: success",
+            "schema": {
+              "$ref": "#/definitions/Language"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Languages"
+        ],
+        "summary": "Display all languages",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Languages"
+            }
+          }
+        }
+      }
+    },
+    "/{language_id}/subCategoryLanguages": {
+      "post": {
+        "tags": [
+          "Sub_Category_Language"
+        ],
+        "description": "Insert a subcategory for the given language id",
+        "parameters": [
+          {
+            "name": "language_id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer"
+            },
+            "description": "Language ID"
+          },
+          {
+            "name": "sub_category_language",
+            "in": "body",
+            "description": "Language Sub-Category to insert",
+            "schema": {
+              "$ref": "#/definitions/Sub_Category_Language"
+            },
+            "example": {
+              "sub_category_text": "us",
+              "sub_category_description": "United States"
+            }
+          }
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "Insert language sub-category: success",
+            "schema": {
+              "$ref": "#/definitions/Sub_Category_Language"
+            }
+          }
+        }
+      }
+    },
+    "/subCategoryLanguages": {
+      "get": {
+        "tags": [
+          "Sub_Category_Languages"
+        ],
+        "summary": "Display all language sub-categories",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/definitions/Sub_Category_Languages"
+            }
+          }
+        }
+      }
+    }
+  },
+  "definitions": {
+    "Language": {
+      "required": [
+        "language_name",
+        "iso_6391"
+      ],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "language_name": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "iso_6391": {
+          "type": "string",
+          "uniqueItems": true
+        },
+        "is_active": {
+          "type": "boolean"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        }
+      }
+    },
+    "Languages": {
+      "type": "array",
+      "$ref": "#/definitions/Language"
+    },
+    "Sub_Category_Language": {
+      "required": [],
+      "properties": {
+        "id": {
+          "type": "integer",
+          "uniqueItems": true
+        },
+        "sub_category_text": {
+          "type": "string"
+        },
+        "sub_category_description": {
+          "type": "string"
+        }
+      }
+    },
+    "Sub_Category_Languages": {
+      "type": "array",
+      "$ref": "#/definitions/Sub_Category_Language"
+    }
+  }
+}
